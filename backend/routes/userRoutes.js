@@ -2,15 +2,14 @@ const express = require('express')
 const mongoose = require("mongoose");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { query, validationResult } = require('express-validator');
 const userSchema = require('../schemas/userSchema');
 
 const User = mongoose.model("User", userSchema);
 
 const router = express.Router();
 
-// "/api/user/signup"
-router.post("/signup", query('email').notEmpty(), async (req, res) => {
+// "/api/user/register"
+router.post("/register", async (req, res) => {
     try {
         const hashPassword = await bcrypt.hash(req.body.password, 10)
         const newUser = new User({
