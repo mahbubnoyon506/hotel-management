@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 mongoose.set('strictQuery', false);
 
 const userRoute = require('./routes/userRoutes')
+const authRoute = require('./routes/auth')
 
 
 // express app
@@ -21,6 +22,7 @@ app.use((req, res, next) => {
 
 // routes
 app.use('/api/user', userRoute)
+app.use('/api/user', authRoute)
 
 
 // connect to db
