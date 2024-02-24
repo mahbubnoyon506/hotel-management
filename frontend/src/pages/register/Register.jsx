@@ -1,8 +1,12 @@
 import React from "react";
 
+import APIKit from "../../components/commons/helpers/ApiKit";
+
+import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
-import Inputfield from "../../components/forms/Inputfield";
+
 import Button from "../../components/shared/Button";
+import Inputfield from "../../components/forms/Inputfield";
 
 function Register() {
   const {
@@ -10,7 +14,14 @@ function Register() {
     register,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    const promise = APIKit.auth.register(data);
+    return toast.promise(promise, {
+      loading: "Loading...",
+      success: "Registration successful",
+      error: "Something went wrong!",
+    });
+  };
 
   return (
     <div className="container mx-auto py-4">
