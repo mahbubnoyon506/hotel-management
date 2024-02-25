@@ -1,15 +1,13 @@
 import React from "react";
-
+import Inputfield from "../../components/forms/Inputfield";
+import { Link, useNavigate } from "react-router-dom";
+import Button from "../../components/shared/Button";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import APIKit from "../../components/commons/helpers/ApiKit";
 
-import toast from "react-hot-toast";
-import { useForm } from "react-hook-form";
-
-import Button from "../../components/shared/Button";
-import Inputfield from "../../components/forms/Inputfield";
-import { Link } from "react-router-dom";
-
-function Register() {
+function Login() {
+  const navigate = useNavigate();
   const {
     handleSubmit,
     register,
@@ -17,13 +15,13 @@ function Register() {
   } = useForm();
   const onSubmit = async (data) => {
     try {
-      const response = await APIKit.auth.register(data);
+      const response = await APIKit.auth.login(data);
       const { token, message } = response.data;
 
       // Store the token in local storage
       localStorage.setItem("auth_token", token);
-
       toast.success(message);
+      navigate("/");
     } catch (error) {
       toast.error(error.response?.data?.message || "An error occurred");
     }
@@ -32,17 +30,10 @@ function Register() {
   return (
     <div className="container mx-auto py-4">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <p className="text-lg font-semibold text-gray-700">Create an account</p>
+        <p className="text-lg font-semibold text-gray-700">
+          Login to your account
+        </p>
         <div className="space-y-3">
-          <Inputfield
-            type="text"
-            placeholder="Type your name"
-            label="Your name"
-            field="name"
-            formType={register}
-            required="Name is required"
-            errors={errors?.name?.message}
-          />
           <Inputfield
             type="email"
             placeholder="Type your name"
@@ -66,11 +57,11 @@ function Register() {
           />
           <div className="flex gap-2 items-end">
             <Button variant="sky" type="submit">
-              Register
-            </Button>
-            <p>Already have an account?</p>{" "}
-            <Link className="underline text-sky-600" to="/login">
               Login
+            </Button>
+            <p>Don't have an account?</p>{" "}
+            <Link className="underline text-sky-600" to="/register">
+              Create account
             </Link>
           </div>
         </div>
@@ -79,4 +70,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default Login;

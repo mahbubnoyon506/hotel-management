@@ -21,15 +21,9 @@ router.post("/login", async (req, res) => {
         if (!isMatch) {
             return res.status(400).send({ message: "Invalid credentials" })
         }
-
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECTRET_KEY, { expiresIn: "1d" });
 
-        res.cookie("auth_token", token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV,
-            maxAge: 86400000
-        })
-        res.status(200).json({ userId: user._id, token })
+        res.status(200).json({ message: "Successfully logged in.", userId: user._id, token })
 
     } catch (error) {
         console.log(error);
@@ -38,7 +32,7 @@ router.post("/login", async (req, res) => {
 })
 // /api/user/validate-token
 router.get('/validate-token', verifyToken, (req, res) => {
-    res.status(200).send({ userId: req.userId })
+    res.status(200).send({ message: "Authorized", userId: req.userId })
 })
 
 module.exports = router;

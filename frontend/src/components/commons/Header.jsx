@@ -5,7 +5,6 @@ import { useAuth } from "../../contexts/appContext";
 
 function Header() {
   const { isLoggedIn } = useAuth();
-  console.log(isLoggedIn);
   return (
     <div className="bg-blue-800 py-6">
       <div className=" container mx-auto flex justify-between pb-6">
@@ -14,7 +13,7 @@ function Header() {
         </span>
         <span className="flex space-x-2">
           <Link
-            to="/sign-in"
+            to="/login"
             className="flex bg-white items-center text-blue-600 px-3 font-bold hover:bg-gray-100"
           >
             Sign {isLoggedIn ? "Out" : "In"}

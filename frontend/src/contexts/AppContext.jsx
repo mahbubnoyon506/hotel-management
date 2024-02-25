@@ -10,6 +10,7 @@ const AuthProvider = ({ children }) => {
   const checkUser = async () => {
     try {
       const response = await APIKit.auth.validateUser(token);
+      console.log(response);
       if (response.status === 200) {
         setIsLoggedIn(true);
       } else {

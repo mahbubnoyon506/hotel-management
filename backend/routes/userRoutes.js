@@ -21,11 +21,6 @@ router.post("/register", async (req, res) => {
         const token = jwt.sign({ userId: req.body.id }, process.env.JWT_SECTRET_KEY, {
             expiresIn: "1d"
         });
-        // res.cookie("auth_token", token, {
-        //     httpOnly: true,
-        //     secure: process.env.NODE_ENV === "production",
-        //     maxAge: 86400000
-        // })
         res.status(200).send({ message: "User registered successfully", token })
     } catch (error) {
         res.status(500).send({ message: "Something went wrong" })
