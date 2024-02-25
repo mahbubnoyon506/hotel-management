@@ -14,13 +14,18 @@ function Register() {
     register,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
-    const promise = APIKit.auth.register(data);
-    return toast.promise(promise, {
-      loading: "Loading...",
-      success: "Registration successful",
-      error: "Something went wrong!",
-    });
+  const onSubmit = async (data) => {
+    try {
+      const response = await APIKit.auth.register(data);
+      const { token, message } = response.data;
+
+      // Store the token in local storage
+      localStorage.setItem("auth_token", token);
+
+      toast.success(message);
+    } catch (error) {
+      toast.error(error.response?.data?.message || "An error occurred");
+    }
   };
 
   return (

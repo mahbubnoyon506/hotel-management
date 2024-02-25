@@ -6,6 +6,10 @@ const APIKit = {
       const url = "/api/user/register";
       return client.post(url, payload);
     },
+    validateUser: (token) => {
+      const url = "/api/user/validate-token";
+      return client.get(url, { headers: { Authorization: `Bearer ${token}` } });
+    },
   },
 };
 

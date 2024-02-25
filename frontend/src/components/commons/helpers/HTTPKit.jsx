@@ -13,7 +13,16 @@ const defer = new deferred();
 
 const isReady = () => defer.promise;
 
+const setAuthToken = (token) => {
+  if (token) {
+    client.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  } else {
+    delete client.defaults.headers.common["Authorization"];
+  }
+};
+
 const HTTPKit = {
+  setAuthToken,
   defer,
   isReady,
   get: (url, options) => {
