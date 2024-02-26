@@ -1,15 +1,17 @@
 import React from "react";
-
-import APIKit from "../../components/commons/helpers/ApiKit";
+import { Link } from "react-router-dom";
 
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 
+import APIKit from "../../components/commons/helpers/ApiKit";
+import { useAuth } from "../../contexts/appContext";
+
 import Button from "../../components/shared/Button";
 import Inputfield from "../../components/forms/Inputfield";
-import { Link } from "react-router-dom";
 
 function Register() {
+  const { dispatch } = useAuth();
   const {
     handleSubmit,
     register,
@@ -22,8 +24,8 @@ function Register() {
 
       // Store the token in local storage
       localStorage.setItem("auth_token", token);
-
       toast.success(message);
+      dispatch({ type: "LOGIN", payload: { user: response.data.userId } });
     } catch (error) {
       toast.error(error.response?.data?.message || "An error occurred");
     }

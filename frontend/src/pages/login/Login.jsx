@@ -1,12 +1,17 @@
 import React from "react";
-import Inputfield from "../../components/forms/Inputfield";
+
 import { Link, useNavigate } from "react-router-dom";
-import Button from "../../components/shared/Button";
-import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { useForm } from "react-hook-form";
+
 import APIKit from "../../components/commons/helpers/ApiKit";
+import { useAuth } from "../../contexts/appContext";
+
+import Button from "../../components/shared/Button";
+import Inputfield from "../../components/forms/Inputfield";
 
 function Login() {
+  const { dispatch } = useAuth();
   const navigate = useNavigate();
   const {
     handleSubmit,
@@ -22,6 +27,7 @@ function Login() {
       localStorage.setItem("auth_token", token);
       toast.success(message);
       navigate("/");
+      dispatch({ type: "LOGIN", payload: { user: response.data.userId } });
     } catch (error) {
       toast.error(error.response?.data?.message || "An error occurred");
     }
@@ -31,7 +37,7 @@ function Login() {
     <div className="container mx-auto py-4">
       <form onSubmit={handleSubmit(onSubmit)}>
         <p className="text-lg font-semibold text-gray-700">
-          Login to your account
+          Sign In to your account
         </p>
         <div className="space-y-3">
           <Inputfield

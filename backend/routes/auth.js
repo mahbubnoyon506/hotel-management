@@ -35,4 +35,9 @@ router.get('/validate-token', verifyToken, (req, res) => {
     res.status(200).send({ message: "Authorized", userId: req.userId })
 })
 
+// /api/user/logout
+router.post('/logout', (req, res) => {
+    res.clearCookie('auth_token').status(200).send({ message: "Signed Out" })
+})
+
 module.exports = router;
