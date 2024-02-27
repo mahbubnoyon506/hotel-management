@@ -14,6 +14,10 @@ const APIKit = {
       const url = "/api/user/validate-token";
       return client.get(url, { headers: { Authorization: `Bearer ${token}` } });
     },
+    logout: () => {
+      const url = "/api/user/logout";
+      return client.post(url);
+    },
   },
 };
 

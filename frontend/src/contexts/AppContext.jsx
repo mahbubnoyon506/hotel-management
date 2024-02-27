@@ -1,23 +1,41 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
 import APIKit from "../components/commons/helpers/ApiKit";
 
 const AuthContext = createContext();
+const initialState = {
+  user: null,
+  isAuthenticated: false,
+};
+
+const authReducer = (state, action) => {
+  switch (action.type) {
+    case "LOGIN":
+      return {
+        ...state,
+        user: action.payload.user,
+        isAuthenticated: true,
+      };
+    case "LOGOUT":
+      return {
+        ...state,
+        user: null,
+        isAuthenticated: false,
+      };
+    default:
+      return state;
+  }
+};
 
 const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(null);
+  const [state, dispatch] = useReducer(authReducer, initialState);
   const token = localStorage.getItem("auth_token");
 
   const checkUser = async () => {
     try {
       const response = await APIKit.auth.validateUser(token);
-      console.log(response);
-      if (response.status === 200) {
-        setIsLoggedIn(true);
-      } else {
-        setIsLoggedIn(false);
-      }
+      dispatch({ type: "LOGIN", payload: { user: response.data.userId } });
     } catch (error) {
-      setIsLoggedIn(false);
+      dispatch({ type: "LOGOUT" });
     }
   };
 
@@ -26,7 +44,7 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn }}>
+    <AuthContext.Provider value={{ state, dispatch }}>
       {children}
     </AuthContext.Provider>
   );
