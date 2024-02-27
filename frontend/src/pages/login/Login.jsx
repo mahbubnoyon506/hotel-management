@@ -34,7 +34,7 @@ function Login() {
   };
 
   return (
-    <div className="container mx-auto py-4">
+    <div className="container mx-auto py-4 min-h-screen">
       <form onSubmit={handleSubmit(onSubmit)}>
         <p className="text-lg font-semibold text-gray-700">
           Sign In to your account
