@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
-const bookingSchema = new mongoose.Schema({
+const bookingSchema = mongoose.Schema({
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     email: { type: String, required: true },
@@ -12,7 +12,7 @@ const bookingSchema = new mongoose.Schema({
     totalCost: { type: Number, required: true },
 })
 
-const hotelSchema = new mongoose.Schema({
+const hotelSchema = mongoose.Schema({
     userId: { type: String, required: true },
     name: { type: String, required: true },
     city: { type: String, required: true },
@@ -29,6 +29,4 @@ const hotelSchema = new mongoose.Schema({
     bookings: [bookingSchema]
 })
 
-const Hotel = mongoose.model('Hotels', hotelSchema);
-
-module.exports = Hotel;
+module.exports = hotelSchema;

@@ -37,7 +37,7 @@ function Register() {
         <p className="text-center text-2xl font-bold text-gray-700 pb-12">
           Create an account
         </p>
-        <div className="space-y-3">
+        <div className="space-y-4">
           <Inputfield
             type="text"
             placeholder="Type your name"

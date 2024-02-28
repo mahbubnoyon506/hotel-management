@@ -19,6 +19,12 @@ const APIKit = {
       return client.post(url);
     },
   },
+  myHotels: {
+    addHotel: (payload) => {
+      const url = "/api/my-hotels/add";
+      return client.post(url, payload);
+    },
+  },
 };
 
 export default APIKit;

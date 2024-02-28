@@ -7,6 +7,7 @@ import RadioBadgesField from "./RadioBadgesField";
 import Button from "../shared/Button";
 import { useForm } from "react-hook-form";
 import ImaheUploadField from "./ImaheUploadField";
+import APIKit from "../commons/helpers/ApiKit";
 
 const ratingOptions = [
   { label: 1, value: 1 },
@@ -31,10 +32,11 @@ function HotelForm() {
     handleSubmit,
     register,
     watch,
-    // formState: { errors },
+    formState: { errors },
   } = useForm();
   const onSubmit = async (data) => {
     console.log(data);
+    await APIKit.myHotels.addHotel(data);
   };
   return (
     <div>
@@ -144,7 +146,7 @@ function HotelForm() {
             </div>
           </div>
         </div>
-        <ImaheUploadField formType={register} watch={watch} />
+        {/* <ImaheUploadField formType={register} watch={watch} /> */}
         <Button type="submit" variant="sky">
           Add Hotel
         </Button>

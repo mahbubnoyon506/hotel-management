@@ -7,6 +7,7 @@ const cloudinary = require('cloudinary').v2
 
 const userRoute = require('./routes/userRoutes')
 const authRoute = require('./routes/auth')
+const myhotelRoutes = require('./routes/myHotels')
 
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
@@ -29,6 +30,7 @@ app.use((req, res, next) => {
 // routes
 app.use('/api/user', userRoute)
 app.use('/api/user', authRoute)
+app.use('/api/my-hotels', myhotelRoutes)
 
 
 // connect to db
