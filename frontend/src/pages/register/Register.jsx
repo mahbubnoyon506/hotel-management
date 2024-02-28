@@ -32,9 +32,11 @@ function Register() {
   };
 
   return (
-    <div className="container mx-auto py-4">
+    <div className="container mx-auto py-20">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <p className="text-lg font-semibold text-gray-700">Create an account</p>
+        <p className="text-center text-2xl font-bold text-gray-700 pb-12">
+          Create an account
+        </p>
         <div className="space-y-3">
           <Inputfield
             type="text"
@@ -47,7 +49,7 @@ function Register() {
           />
           <Inputfield
             type="email"
-            placeholder="Type your name"
+            placeholder="Type your email"
             label="Your Email"
             field="email"
             formType={register}
@@ -57,6 +59,7 @@ function Register() {
           <Inputfield
             type="password"
             label="Type password"
+            placeholder="Type password"
             field="password"
             formType={register}
             required="Password is required"
@@ -66,14 +69,16 @@ function Register() {
             }}
             errors={errors?.password?.message}
           />
-          <div className="flex gap-2 items-end">
+          <div className="flex gap-2 items-center justify-between">
+            <div>
+              <p className="inline">Already have an account?</p>{" "}
+              <Link className="underline text-sky-600" to="/login">
+                Login
+              </Link>
+            </div>
             <Button variant="sky" type="submit">
               Register
             </Button>
-            <p>Already have an account?</p>{" "}
-            <Link className="underline text-sky-600" to="/login">
-              Login
-            </Link>
           </div>
         </div>
       </form>

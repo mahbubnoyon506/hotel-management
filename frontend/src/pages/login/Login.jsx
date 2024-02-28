@@ -34,15 +34,15 @@ function Login() {
   };
 
   return (
-    <div className="container mx-auto py-4 min-h-screen">
+    <div className="container mx-auto py-20 ">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <p className="text-lg font-semibold text-gray-700">
+        <p className="text-center text-2xl font-bold text-gray-700 pb-12">
           Sign In to your account
         </p>
         <div className="space-y-3">
           <Inputfield
             type="email"
-            placeholder="Type your name"
+            placeholder="Type your email"
             label="Your Email"
             field="email"
             formType={register}
@@ -52,6 +52,7 @@ function Login() {
           <Inputfield
             type="password"
             label="Type password"
+            placeholder="Type password"
             field="password"
             formType={register}
             required="Password is required"
@@ -61,14 +62,16 @@ function Login() {
             }}
             errors={errors?.password?.message}
           />
-          <div className="flex gap-2 items-end">
+          <div className="flex gap-2 items-center justify-between">
+            <div>
+              <p className="inline">Don't have an account?</p>{" "}
+              <Link className="underline text-sky-600" to="/register">
+                Create an account
+              </Link>
+            </div>
             <Button variant="sky" type="submit">
               Login
             </Button>
-            <p>Don't have an account?</p>{" "}
-            <Link className="underline text-sky-600" to="/register">
-              Create account
-            </Link>
           </div>
         </div>
       </form>
