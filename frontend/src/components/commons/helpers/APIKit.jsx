@@ -1,5 +1,11 @@
 import { client } from "./HTTPKIT";
 
+const defaultFileUploadConfig = {
+  headers: {
+    "Content-Type": "multipart/form-data",
+  },
+};
+
 const APIKit = {
   auth: {
     register: (payload) => {
@@ -22,7 +28,7 @@ const APIKit = {
   myHotels: {
     addHotel: (payload) => {
       const url = "/api/my-hotels/add";
-      return client.post(url, payload);
+      return client.post(url, payload, defaultFileUploadConfig);
     },
   },
 };

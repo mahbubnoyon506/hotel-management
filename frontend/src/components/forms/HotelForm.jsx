@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Inputfield from "./Inputfield";
 import TextAreaField from "./TextAreaField";
 import SelectField from "./SelectField";
@@ -28,16 +28,44 @@ const facilitiesOptions = [
 ];
 
 function HotelForm() {
+  const [hotelImages, setHotelImages] = useState([]);
   const {
     handleSubmit,
     register,
-    watch,
     formState: { errors },
   } = useForm();
+  console.log(hotelImages);
+
   const onSubmit = async (data) => {
-    console.log(data);
-    await APIKit.myHotels.addHotel(data);
+    try {
+      // Send the URLs to your backend
+      console.log(hotelImages);
+      const formData = new FormData();
+      formData.append("city", data.city);
+      formData.append("name", data.name);
+      formData.append("country", data.country);
+      formData.append("description", data.description);
+      formData.append("pricePerNight", data.pricePerNight);
+      formData.append("startRating", data.startRating);
+      formData.append("type", data.type);
+      formData.append("facilities", data.facilities);
+      formData.append("adultCount", data.adultCount);
+      formData.append("childCount", data.childCount);
+
+      if (data.images && data.images.length > 0) {
+        // Append each image file to FormData
+        for (let i = 0; i < data.images.length; i++) {
+          formData.append("images", data.images[i]);
+        }
+      }
+
+      // Assuming 'addHotel' is your API call function
+      await APIKit.myHotels.addHotel(formData);
+    } catch (error) {
+      console.error("Error uploading images:", error);
+    }
   };
+
   return (
     <div>
       <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
@@ -146,7 +174,12 @@ function HotelForm() {
             </div>
           </div>
         </div>
-        {/* <ImaheUploadField formType={register} watch={watch} /> */}
+        <ImaheUploadField
+          formType={register}
+          field="imageUrls"
+          hotelImages={hotelImages}
+          setHotelImages={setHotelImages}
+        />
         <Button type="submit" variant="sky">
           Add Hotel
         </Button>

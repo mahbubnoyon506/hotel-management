@@ -32,7 +32,6 @@ app.use('/api/user', userRoute)
 app.use('/api/user', authRoute)
 app.use('/api/my-hotels', myhotelRoutes)
 
-
 // connect to db
 mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@cluster0.ts2x6xa.mongodb.net/?retryWrites=true&w=majority`)
     .then(() => {

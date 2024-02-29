@@ -5,6 +5,7 @@ import Home from "../pages/home/Home";
 import Register from "../pages/register/Register";
 import Login from "../pages/login/Login";
 import MyHotels from "../pages/my-hotels/MyHotels";
+import ImageUpload from "../pages/image-upload/ImageUpload";
 
 const routes = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const routes = createBrowserRouter([
       {
         path: "/my-hotels",
         element: <MyHotels />,
+      },
+      {
+        path: "/image-upload",
+        element: <ImageUpload />,
       },
     ],
   },
