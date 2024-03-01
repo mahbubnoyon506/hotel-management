@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useReducer } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 import APIKit from "../components/commons/helpers/ApiKit";
 
 const AuthContext = createContext();
@@ -29,11 +35,18 @@ const authReducer = (state, action) => {
 const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
   const token = localStorage.getItem("auth_token");
+  // Added property for the intended location
+  const [intendedLocation, setIntendedLocation] = useState(null);
 
   const checkUser = async () => {
     try {
       const response = await APIKit.auth.validateUser(token);
       dispatch({ type: "LOGIN", payload: { user: response.data.userId } });
+      // Redirect to the intended location after successful login
+      if (intendedLocation) {
+        history.push(intendedLocation);
+        setIntendedLocation(null); // Reset intended location after redirection
+      }
     } catch (error) {
       dispatch({ type: "LOGOUT" });
     }
@@ -41,7 +54,7 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     checkUser();
-  }, []);
+  }, [intendedLocation]);
 
   return (
     <AuthContext.Provider value={{ state, dispatch }}>

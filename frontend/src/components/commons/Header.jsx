@@ -37,17 +37,27 @@ function Header() {
           {!state.isAuthenticated ? (
             <Link
               to="/login"
-              className="flex bg-white items-center text-blue-600 px-3 font-bold hover:bg-gray-100 cursor-pointer "
+              className="flex bg-white items-center text-blue-600 px-6 py-3 font-bold hover:bg-gray-100 cursor-pointer "
             >
               Sign In
             </Link>
           ) : (
-            <p
-              className="bg-white items-center text-blue-600 px-3 font-bold hover:bg-gray-100 cursor-pointer "
-              onClick={handleLogout}
-            >
-              Logout
-            </p>
+            <ul className="flex gap-4 items-center">
+              <li className="text-lg font-semibold text-white">
+                <Link to="">Our Hotel</Link>
+              </li>
+              <li className="text-lg font-semibold text-white">
+                <Link to="">My Booking</Link>
+              </li>
+              <li>
+                <p
+                  className="bg-white items-center text-blue-600 px-6 py-3 font-bold hover:bg-gray-100 cursor-pointer "
+                  onClick={handleLogout}
+                >
+                  Logout
+                </p>
+              </li>
+            </ul>
           )}
         </span>
       </div>

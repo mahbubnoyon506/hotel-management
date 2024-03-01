@@ -48,7 +48,7 @@ const upload = multer({ dest: 'uploads/' });
 // });
 
 // /api/my-hotels/add
-router.post("/add", upload.array('images'), async (req, res) => {
+router.post("/add", upload.array('images'), verifyToken, async (req, res) => {
     try {
         // let newHotel = req.body;
         const uploadPromises = req.files.map(async (file) => {
