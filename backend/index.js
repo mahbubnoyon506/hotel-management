@@ -3,10 +3,17 @@ const cors = require('cors')
 const express = require('express')
 const mongoose = require('mongoose')
 mongoose.set('strictQuery', false);
+const cloudinary = require('cloudinary').v2
 
 const userRoute = require('./routes/userRoutes')
 const authRoute = require('./routes/auth')
+const myhotelRoutes = require('./routes/myHotels')
 
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET
+});
 
 // express app
 const app = express()
@@ -23,7 +30,7 @@ app.use((req, res, next) => {
 // routes
 app.use('/api/user', userRoute)
 app.use('/api/user', authRoute)
-
+app.use('/api/my-hotels', myhotelRoutes)
 
 // connect to db
 mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@cluster0.ts2x6xa.mongodb.net/?retryWrites=true&w=majority`)

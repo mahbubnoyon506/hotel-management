@@ -4,9 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 import APIKit from "./helpers/ApiKit";
-import { useAuth } from "../../contexts/appContext";
 
 import Hero from "../Hero";
+import { useAuth } from "../../contexts/AppContext";
 
 function Header() {
   const navigate = useNavigate();
@@ -27,6 +27,7 @@ function Header() {
       toast.error("Failed to signout");
     }
   };
+  console.log(state);
   return (
     <div className="bg-blue-800 py-6">
       <div className=" container mx-auto flex justify-between pb-6">
@@ -37,17 +38,27 @@ function Header() {
           {!state.isAuthenticated ? (
             <Link
               to="/login"
-              className="flex bg-white items-center text-blue-600 px-3 font-bold hover:bg-gray-100 cursor-pointer "
+              className="flex bg-white items-center text-blue-600 px-6 py-3 font-bold hover:bg-gray-100 cursor-pointer "
             >
               Sign In
             </Link>
           ) : (
-            <p
-              className="bg-white items-center text-blue-600 px-3 font-bold hover:bg-gray-100 cursor-pointer "
-              onClick={handleLogout}
-            >
-              Logout
-            </p>
+            <ul className="flex gap-4 items-center">
+              <li className="text-lg font-semibold text-white">
+                <Link to="">My Hotels</Link>
+              </li>
+              <li className="text-lg font-semibold text-white">
+                <Link to="">My Booking</Link>
+              </li>
+              <li>
+                <p
+                  className="bg-white items-center text-blue-600 px-6 py-3 font-bold hover:bg-gray-100 cursor-pointer "
+                  onClick={handleLogout}
+                >
+                  Logout
+                </p>
+              </li>
+            </ul>
           )}
         </span>
       </div>
