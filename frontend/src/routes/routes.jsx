@@ -28,7 +28,11 @@ const routes = createBrowserRouter([
       },
       {
         path: "/my-hotels",
-        element: <PrivateRoute element={<MyHotels />} />,
+        element: (
+          // <PrivateRoute>
+          <MyHotels />
+          // </PrivateRoute>
+        ),
       },
       {
         path: "/image-upload",

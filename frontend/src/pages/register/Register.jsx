@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 
 import APIKit from "../../components/commons/helpers/ApiKit";
-import { useAuth } from "../../contexts/appContext";
+import { useAuth } from "../../contexts/AppContext";
 
 import Button from "../../components/shared/Button";
 import Inputfield from "../../components/forms/Inputfield";

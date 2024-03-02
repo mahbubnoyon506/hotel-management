@@ -1,11 +1,14 @@
 import axios from "axios";
 import { deferred } from "./UtilKit";
 
+const token = localStorage.getItem("auth_token") || "";
+
 export let client = axios.create({
   baseURL: "http://localhost:5000",
   timeout: 50000,
   headers: {
     "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
   },
 });
 

@@ -7,60 +7,20 @@ const hotelSchema = require('../schemas/hotelSchema');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 // const { body, validationResult } = require('express-validator');
 
-
 const router = express.Router()
 const Hotel = mongoose.model('Hotels', hotelSchema);
 
-// const imageSchema = new mongoose.Schema({
-//     images: [String] 
-// });
-
-// const Image = mongoose.model('Image', imageSchema);
-
 const upload = multer({ dest: 'uploads/' });
-
-// Upload endpoint
-// router.post('/upload', upload.array('images'), async (req, res) => {
-//     try {
-//         const uploadPromises = req.files.map(async (file) => {
-//             const result = await cloudinary.uploader.upload(file.path);
-//             return result.secure_url;
-//         });
-//         const imageUrls = await Promise.all(uploadPromises);
-//         const newImage = new Image({ images: imageUrls });
-//         await newImage.save();
-//         res.json({ images: imageUrls });
-//     } catch (error) {
-//         console.error('Error uploading image:', error);
-//         res.status(500).json({ error: 'Internal Server Error' });
-//     }
-// });
-
-// // Get all images endpoint
-// router.get('/images', async (req, res) => {
-//     try {
-//         const images = await Image.find();
-//         res.json({ images });
-//     } catch (error) {
-//         console.error('Error retrieving images:', error);
-//         res.status(500).json({ error: 'Internal Server Error' });
-//     }
-// });
 
 // /api/my-hotels/add
 router.post("/add", upload.array('images'), verifyToken, async (req, res) => {
     try {
-        // let newHotel = req.body;
+        const userId = req.userId
         const uploadPromises = req.files.map(async (file) => {
             const result = await cloudinary.uploader.upload(file.path);
             return result.secure_url;
         });
         const imageUrls = await Promise.all(uploadPromises);
-        // newHotel.imageUrls = imageUrls;
-        // newHotel.lastUpdated = new Date();
-        // newHotel.userId = req.userId;
-
-        // const hotel = new Hotel(newHotel);
 
         const newHotel = new Hotel({
             city: req.body.city,
@@ -74,10 +34,9 @@ router.post("/add", upload.array('images'), verifyToken, async (req, res) => {
             adultCount: req.body.adultCount,
             childCount: req.body.childCount,
             lastUpdated: new Date(),
-            // userId: req.userId,
+            userId: userId,
             imageUrls: imageUrls
         });
-        console.log(newHotel)
         newHotel.save();
         res.status(201).send({ message: "Hotel added successfully" });
     } catch (error) {

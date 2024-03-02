@@ -4,9 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 import APIKit from "./helpers/ApiKit";
-import { useAuth } from "../../contexts/appContext";
 
 import Hero from "../Hero";
+import { useAuth } from "../../contexts/AppContext";
 
 function Header() {
   const navigate = useNavigate();
@@ -27,6 +27,7 @@ function Header() {
       toast.error("Failed to signout");
     }
   };
+  console.log(state);
   return (
     <div className="bg-blue-800 py-6">
       <div className=" container mx-auto flex justify-between pb-6">
@@ -44,7 +45,7 @@ function Header() {
           ) : (
             <ul className="flex gap-4 items-center">
               <li className="text-lg font-semibold text-white">
-                <Link to="">Our Hotel</Link>
+                <Link to="">My Hotels</Link>
               </li>
               <li className="text-lg font-semibold text-white">
                 <Link to="">My Booking</Link>

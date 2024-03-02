@@ -5,8 +5,6 @@ import { useAuth } from "../contexts/AppContext";
 const PrivateRoute = ({ children }) => {
   const { state } = useAuth();
   let location = useLocation();
-  // console.log(admin.role)
-
   if (!state.isAuthenticated) {
     return <Navigate to="/login" state={{ from: location }} replace></Navigate>;
   }
