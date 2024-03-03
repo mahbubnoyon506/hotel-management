@@ -30,6 +30,10 @@ const APIKit = {
       const url = "/api/my-hotels/add";
       return client.post(url, payload, defaultFileUploadConfig);
     },
+    allHotels: (payload) => {
+      const url = "/api/my-hotels";
+      return client.get(url, payload);
+    },
   },
 };
 

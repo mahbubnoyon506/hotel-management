@@ -46,4 +46,16 @@ router.post("/add", upload.array('images'), verifyToken, async (req, res) => {
 
 })
 
+// /api/my-hotels/
+router.get("/", verifyToken, async (req, res) => {
+    const userId = req.userId;
+    console.log(userId);
+    try {
+        const hotels = await Hotel.find({ userId });
+        res.status(201).json({ hotels })
+    } catch (error) {
+        res.status(501).json({ message: "Something went wrong" })
+    }
+})
+
 module.exports = router
