@@ -28,7 +28,7 @@ router.post("/add", upload.array('images'), verifyToken, async (req, res) => {
             country: req.body.country,
             description: req.body.description,
             pricePerNight: req.body.pricePerNight,
-            startRating: req.body.startRating,
+            starRating: req.body.starRating,
             type: req.body.type,
             facilities: req.body.facilities,
             adultCount: req.body.adultCount,
@@ -49,10 +49,9 @@ router.post("/add", upload.array('images'), verifyToken, async (req, res) => {
 // /api/my-hotels/
 router.get("/", verifyToken, async (req, res) => {
     const userId = req.userId;
-    console.log(userId);
     try {
         const hotels = await Hotel.find({ userId });
-        res.status(201).json({ hotels })
+        res.status(201).json({ results: hotels })
     } catch (error) {
         res.status(501).json({ message: "Something went wrong" })
     }
