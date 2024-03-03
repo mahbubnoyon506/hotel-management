@@ -45,7 +45,7 @@ function Header() {
           ) : (
             <ul className="flex gap-4 items-center">
               <li className="text-lg font-semibold text-white">
-                <Link to="">My Hotels</Link>
+                <Link to="/my-hotels">My Hotels</Link>
               </li>
               <li className="text-lg font-semibold text-white">
                 <Link to="">My Booking</Link>

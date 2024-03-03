@@ -46,7 +46,7 @@ function HotelForm() {
       formData.append("country", data.country);
       formData.append("description", data.description);
       formData.append("pricePerNight", data.pricePerNight);
-      formData.append("startRating", data.startRating);
+      formData.append("starRating", data.starRating);
       formData.append("type", data.type);
       formData.append("facilities", data.facilities);
       formData.append("adultCount", data.adultCount);
@@ -123,7 +123,7 @@ function HotelForm() {
             <SelectField
               label="Start Rating"
               placeholder="Select rating"
-              field="startRating"
+              field="starRating"
               formType={register}
               required="Rating is required"
               selectOptions={ratingOptions}
