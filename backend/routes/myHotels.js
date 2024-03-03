@@ -57,4 +57,15 @@ router.get("/", verifyToken, async (req, res) => {
     }
 })
 
+// /api/my-hotels/id
+router.get("/:id", verifyToken, async (req, res) => {
+    const id = req.params.id.toString()
+    try {
+        const hotel = await Hotel.find({ _id: id, userId: req.userId });
+        res.status(201).json({ results: hotel })
+    } catch (error) {
+        res.status(500).json({ message: "Something went wrong" })
+    }
+})
+
 module.exports = router
