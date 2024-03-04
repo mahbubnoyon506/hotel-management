@@ -34,6 +34,14 @@ const APIKit = {
       const url = "/api/my-hotels";
       return client.get(url, payload);
     },
+    hotelDetails: (params) => {
+      const url = `/api/my-hotels/${params}`;
+      return client.get(url);
+    },
+    putHotelDetails: (params, payload) => {
+      const url = `/api/my-hotels/${params}`;
+      return client.patch(url, payload, defaultFileUploadConfig);
+    },
   },
 };
 

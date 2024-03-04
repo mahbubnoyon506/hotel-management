@@ -33,7 +33,6 @@ const AuthProvider = ({ children }) => {
   const checkUser = async () => {
     try {
       const response = await APIKit.auth.validateUser(token);
-      console.log(response);
       if (response.data.userId) {
         dispatch({ type: "LOGIN", payload: { user: response.data.userId } });
       } else {

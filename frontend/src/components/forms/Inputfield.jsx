@@ -4,6 +4,7 @@ function Inputfield({
   type,
   label = "",
   placeholder = "",
+  defaultValue = "",
   errors = "",
   field,
   formType = () => {},
@@ -22,6 +23,7 @@ function Inputfield({
         className={`py-2 px-3 w-full bg-gray-100 rounded focus:outline-sky-500 focus:outline-1 ring-1 ring-gray-300 ${
           errors.length ? "border-1 border-red-500" : ""
         }`}
+        defaultValue={defaultValue}
         placeholder={placeholder}
         {...formType(field, { required, minLength })}
       />

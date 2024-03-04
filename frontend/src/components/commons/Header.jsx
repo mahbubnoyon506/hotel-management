@@ -27,7 +27,7 @@ function Header() {
       toast.error("Failed to signout");
     }
   };
-  console.log(state);
+
   return (
     <div className="bg-blue-800 py-6">
       <div className=" container mx-auto flex justify-between pb-6">

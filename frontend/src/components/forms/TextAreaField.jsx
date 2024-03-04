@@ -5,6 +5,7 @@ function TextAreaField({
   placeholder = "",
   rows,
   errors = "",
+  defaultValue = "",
   field,
   formType = () => {},
   required,
@@ -20,6 +21,7 @@ function TextAreaField({
         }`}
         rows={rows}
         placeholder={placeholder}
+        defaultValue={defaultValue}
         {...formType(field, { required })}
       />
       <span className="text-sm text-red-500">{errors}</span>
