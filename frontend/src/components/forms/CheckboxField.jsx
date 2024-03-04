@@ -8,6 +8,7 @@ function CheckboxField({
   formType = () => {},
   required,
   isMulty = "false",
+  defaultValue = null,
 }) {
   return (
     <>
@@ -21,6 +22,7 @@ function CheckboxField({
                 id={item.value}
                 name={fieldName}
                 value={item.value}
+                defaultChecked={defaultValue?.includes(item.value)}
                 {...formType(fieldName, { required })}
               />
               <label className="text-gray-600 cursor-pointer" for={item.value}>

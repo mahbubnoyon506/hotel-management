@@ -4,10 +4,13 @@ function SelectField({
   field = "",
   label = "",
   errors = "",
+  defaultValue = null,
   selectOptions,
   formType = () => {},
   required,
 }) {
+  const backendValue = 3;
+  console.log(defaultValue);
   return (
     <div className="flex flex-col gap-1">
       <label className="text-gray-600" htmlFor="">
@@ -19,6 +22,7 @@ function SelectField({
         }`}
         name={field}
         {...formType(field, { required })}
+        defaultValue={defaultValue}
       >
         {selectOptions.map((item) => (
           <option value={item.value}> {item.label}</option>

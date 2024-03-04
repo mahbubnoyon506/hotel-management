@@ -1,13 +1,15 @@
+import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
-import Inputfield from "./Inputfield";
-import TextAreaField from "./TextAreaField";
-import SelectField from "./SelectField";
-import CheckboxField from "./CheckboxField";
-import RadioBadgesField from "./RadioBadgesField";
-import Button from "../shared/Button";
+import { useParams } from "react-router-dom";
+import APIKit from "../../components/commons/helpers/ApiKit";
 import { useForm } from "react-hook-form";
-import ImaheUploadField from "./ImaheUploadField";
-import APIKit from "../commons/helpers/ApiKit";
+import Inputfield from "../../components/forms/Inputfield";
+import TextAreaField from "../../components/forms/TextAreaField";
+import SelectField from "../../components/forms/SelectField";
+import RadioBadgesField from "../../components/forms/RadioBadgesField";
+import CheckboxField from "../../components/forms/CheckboxField";
+import ImaheUploadField from "../../components/forms/ImaheUploadField";
+import Button from "../../components/shared/Button";
 
 const ratingOptions = [
   { label: 1, value: 1 },
@@ -27,18 +29,24 @@ const facilitiesOptions = [
   { label: "Fitness Center", value: "fitness-center" },
 ];
 
-function HotelForm() {
+function HotelDetails() {
+  const { id } = useParams();
+  const { isLoading, error, data } = useQuery({
+    queryKey: ["my-hotels/details"],
+    queryFn: () =>
+      APIKit.myHotels.hotelDetails(id).then(({ data }) => data.results),
+  });
+
   const [hotelImages, setHotelImages] = useState([]);
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm();
-  console.log(hotelImages);
 
   const onSubmit = async (data) => {
+    console.log(data);
     try {
-      // Send the URLs to your backend
       const formData = new FormData();
       formData.append("city", data.city);
       formData.append("name", data.name);
@@ -52,21 +60,21 @@ function HotelForm() {
       formData.append("childCount", data.childCount);
 
       if (data.images && data.images.length > 0) {
-        // Append each image file to FormData
         for (let i = 0; i < data.images.length; i++) {
           formData.append("images", data.images[i]);
         }
       }
-
-      // Assuming 'addHotel' is your API call function
-      await APIKit.myHotels.addHotel(formData);
+      await APIKit.myHotels.putHotelDetails(id, formData);
     } catch (error) {
       console.error("Error uploading images:", error);
     }
   };
+  // string to array
+  const defaultFacilities = data?.facilities.split(",");
 
   return (
-    <div>
+    <div className="container mx-auto py-12 space-y-5">
+      <p className="text-2xl font-bold text-gray-700">Manage Hotel</p>
       <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
         <Inputfield
           type="text"
@@ -74,6 +82,7 @@ function HotelForm() {
           placeholder="Type hotel name"
           field="name"
           formType={register}
+          defaultValue={data?.name}
           //   errors={errors}
         />
         <div className="flex gap-4 justify-between">
@@ -84,6 +93,7 @@ function HotelForm() {
               placeholder="Type city name"
               field="city"
               formType={register}
+              defaultValue={data?.city}
               //   errors={errors}
             />
           </div>
@@ -94,6 +104,7 @@ function HotelForm() {
               placeholder="Type country name"
               field="country"
               formType={register}
+              defaultValue={data?.country}
               //   errors={errors}
             />
           </div>
@@ -104,6 +115,7 @@ function HotelForm() {
           placeholder="Type short description"
           field="description"
           formType={register}
+          defaultValue={data?.description}
           rows={4}
           //   errors={errors}
         />
@@ -115,6 +127,7 @@ function HotelForm() {
               placeholder="Cost per day"
               field="pricePerNight"
               formType={register}
+              defaultValue={data?.pricePerNight}
               //   errors={errors}
             />
           </div>
@@ -126,6 +139,7 @@ function HotelForm() {
               formType={register}
               required="Rating is required"
               selectOptions={ratingOptions}
+              defaultValue={data?.starRating}
               //   errors={errors}
             />
           </div>
@@ -135,6 +149,7 @@ function HotelForm() {
           <RadioBadgesField
             field="type"
             formType={register}
+            type={data?.type}
             // errors={errors}
           />
         </div>
@@ -145,6 +160,7 @@ function HotelForm() {
             fieldName="facilities"
             checkBoxOptions={facilitiesOptions}
             formType={register}
+            defaultValue={defaultFacilities}
             // errors={errors}
           />
         </div>
@@ -158,6 +174,7 @@ function HotelForm() {
                 placeholder="Type adilts count"
                 field="adultCount"
                 formType={register}
+                defaultValue={data?.adultCount}
                 // errors={errors}
               />
             </div>
@@ -168,23 +185,31 @@ function HotelForm() {
                 placeholder="Type children count"
                 field="childCount"
                 formType={register}
+                defaultValue={data?.childCount}
                 // errors={errors}
               />
             </div>
           </div>
         </div>
+        {data?.imageUrls ? (
+          <div>
+            <img className="w-40 h-40" src={data?.imageUrls} alt="" />
+          </div>
+        ) : null}
+
         <ImaheUploadField
           formType={register}
           field="imageUrls"
           hotelImages={hotelImages}
           setHotelImages={setHotelImages}
+          defaultValue={data?.imageUrls}
         />
         <Button type="submit" variant="sky">
-          Add Hotel
+          Edit Hotel
         </Button>
       </form>
     </div>
   );
 }
 
-export default HotelForm;
+export default HotelDetails;

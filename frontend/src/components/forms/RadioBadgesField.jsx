@@ -18,8 +18,14 @@ const hotelTypeOptions = [
   { label: "Self Catering", value: "self-catering" },
 ];
 
-function RadioBadgesField({ field, formType = () => {}, required }) {
-  const [checked, setchecked] = useState(null);
+function RadioBadgesField({
+  field,
+  formType = () => {},
+  required,
+  type = null,
+}) {
+  const [checked, setchecked] = useState(type || "");
+
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       {hotelTypeOptions.map((item) => (
@@ -30,7 +36,7 @@ function RadioBadgesField({ field, formType = () => {}, required }) {
             name="fav_language"
             value={item.value}
             className="hidden"
-            checked="parking"
+            checked={type}
             {...formType(field, { required })}
           />
           <label

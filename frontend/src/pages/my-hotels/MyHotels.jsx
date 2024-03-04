@@ -70,7 +70,12 @@ function MyHotels() {
                     {hotel.starRating || "5"} Star Rating
                   </div>
                 </div>
-                <Button variant="sky">Details View</Button>
+                <Button
+                  onClick={() => navigate(`/my-hotels/${hotel._id}`)}
+                  variant="sky"
+                >
+                  View Details
+                </Button>
               </div>
             </div>
           </div>
