@@ -5,19 +5,15 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import Button from "../shared/Button";
 import InputDate from "../forms/InputDate";
-import Inputfield from "../forms/Inputfield";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 
 function SearchPanel() {
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-  } = useForm();
+  const { handleSubmit, register, control, reset } = useForm();
 
   const onSubmit = async (data) => {
     console.log(data);
   };
+
   return (
     <div className="container mx-auto ">
       <form
@@ -28,13 +24,13 @@ function SearchPanel() {
           <div className="flex flex-row items-center flex-1 bg-white p-2">
             <MdTravelExplore size={25} className="mr-2" />
             <input
-              placeholder="Where are you going?"
+              placeholder="Where to go?"
               className="text-md w-full focus:outline-none"
               {...register("search")}
             />
           </div>
 
-          <div className="flex bg-white px-2 py-1 gap-2">
+          <div className="flex bg-white px-2 py-1 lg:w-56">
             <label className="items-center flex">
               Adults:
               <input
@@ -58,16 +54,18 @@ function SearchPanel() {
           </div>
           <div className="">
             <InputDate
-              field="startDate"
-              formType={register}
+              fieldName="startDate"
               placeholder="Check-In Date"
+              Controller={Controller}
+              control={control}
             />
           </div>
           <div>
             <InputDate
-              field="stopDate"
-              formType={register}
+              fieldName="stopDate"
               placeholder="Check-Out Date"
+              Controller={Controller}
+              control={control}
             />
           </div>
         </div>
@@ -80,7 +78,11 @@ function SearchPanel() {
           >
             Search
           </Button>
-          <Button variant="danger-outline" extraClassName=" font-bold text-lg">
+          <Button
+            variant="danger-outline"
+            extraClassName=" font-bold text-lg"
+            onClick={() => reset()}
+          >
             Clear
           </Button>
         </div>
