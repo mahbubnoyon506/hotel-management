@@ -7,6 +7,7 @@ import APIKit from "./helpers/ApiKit";
 
 import Hero from "../Hero";
 import { useAuth } from "../../contexts/AppContext";
+import SearchPanel from "./SearchPanel";
 
 function Header() {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ function Header() {
   };
 
   return (
-    <div className="bg-blue-800 py-6">
+    <div className="bg-blue-800 py-6 relative">
       <div className=" container mx-auto flex justify-between pb-6">
         <span className="text-3xl text-white font-bold tracking-tight">
           <Link to="/">Holidays.com</Link>
@@ -63,6 +64,7 @@ function Header() {
         </span>
       </div>
       <Hero />
+      <SearchPanel />
     </div>
   );
 }
