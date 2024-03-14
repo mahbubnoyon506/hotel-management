@@ -25,6 +25,12 @@ const APIKit = {
       return client.post(url);
     },
   },
+  hotels: {
+    allhotels: (payload) => {
+      const url = "/api/hotels/search";
+      return client.get(url, payload);
+    },
+  },
   myHotels: {
     addHotel: (payload) => {
       const url = "/api/my-hotels/add";
