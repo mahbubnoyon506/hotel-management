@@ -30,8 +30,6 @@ function Home() {
     queryFn: () =>
       APIKit.hotels.allhotels({ page: page }).then(({ data }) => data),
   });
-  console.log(data);
-  console.log(page);
 
   useEffect(() => {
     refetch();
