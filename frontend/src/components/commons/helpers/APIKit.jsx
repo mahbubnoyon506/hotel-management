@@ -26,9 +26,13 @@ const APIKit = {
     },
   },
   hotels: {
-    allhotels: (payload) => {
-      const url = "/api/hotels/search";
-      return client.get(url, payload);
+    allhotels: (params) => {
+      const url = `/api/hotels/search`;
+      return client.get(url, { params });
+    },
+    hoteldetails: (params) => {
+      const url = `/api/hotels/search/${params}`;
+      return client.get(url);
     },
   },
   myHotels: {
