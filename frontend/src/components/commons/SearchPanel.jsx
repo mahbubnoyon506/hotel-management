@@ -18,10 +18,10 @@ function SearchPanel() {
     <div className="  ">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="-mb-14 p-3 bg-orange-400 rounded shadow-md flex flex-col xl:flex-row justify-between gap-2"
+        className="-mb-14 p-5 bg-orange-400 rounded shadow-md flex flex-col lg:flex-row lg:items-center justify-between gap-2"
       >
-        <div className="grid grid-cols-2 lg:flex lg:flex-wrap items-center gap-2 justify-between">
-          <div className="flex flex-row items-center flex-1 bg-white p-2">
+        <div className=" w-full flex flex-col md:flex-row md:items-center gap-2 ">
+          <div className="flex items-center min-w-44 lg:w-full bg-white p-2">
             <MdTravelExplore size={25} className="mr-2" />
             <input
               placeholder="Where to go?"
@@ -30,21 +30,21 @@ function SearchPanel() {
             />
           </div>
 
-          <div className="flex bg-white px-2 py-1 lg:w-56">
-            <label className="items-center flex">
+          <div className="flex bg-white px-2 py-1 w-full">
+            <label className="items-center flex w-full">
               Adults:
               <input
-                className="w-full p-1 focus:outline-none font-bold"
+                className="p-1 focus:outline-none font-bold"
                 type="number"
                 min={1}
                 max={20}
                 {...register("adultsCount")}
               />
             </label>
-            <label className="items-center flex">
+            <label className="items-center flex w-full">
               Children:
               <input
-                className="w-full p-1 focus:outline-none font-bold"
+                className="p-1 focus:outline-none font-bold"
                 type="number"
                 min={0}
                 max={20}
@@ -52,7 +52,7 @@ function SearchPanel() {
               />
             </label>
           </div>
-          <div className="">
+          <div className="w-full">
             <InputDate
               fieldName="startDate"
               placeholder="Check-In Date"
@@ -60,7 +60,7 @@ function SearchPanel() {
               control={control}
             />
           </div>
-          <div>
+          <div className="w-full">
             <InputDate
               fieldName="stopDate"
               placeholder="Check-Out Date"
@@ -71,20 +71,24 @@ function SearchPanel() {
         </div>
 
         <div className="flex gap-1">
-          <Button
-            variant="sky"
-            extraClassName=" text-white font-bold text-lg hover:bg-blue-500"
-            type="submit"
-          >
-            Search
-          </Button>
-          <Button
-            variant="danger-outline"
-            extraClassName=" font-bold text-lg"
-            onClick={() => reset()}
-          >
-            Clear
-          </Button>
+          <div>
+            <Button
+              variant="sky"
+              extraClassName=" text-white font-bold text-lg hover:bg-blue-500"
+              type="submit"
+            >
+              Search
+            </Button>
+          </div>
+          <div>
+            <Button
+              variant="danger-outline"
+              extraClassName=" font-bold text-lg"
+              onClick={() => reset()}
+            >
+              Clear
+            </Button>
+          </div>
         </div>
       </form>
     </div>
