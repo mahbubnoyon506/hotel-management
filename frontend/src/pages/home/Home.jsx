@@ -36,86 +36,91 @@ function Home() {
   }, [page]);
 
   return (
-    <div className="container mx-auto grid grid-cols-4 gap-4 pt-20 pb-8">
-      {" "}
-      <div className="border border-1 border-gray-400 rounded p-4 space-y-4 divide-y divide-gray-400">
-        <p className="text-lg font-semibold text-gray-500">Filter By</p>
-      </div>{" "}
-      <div className="col-span-3 space-y-4">
-        <div className="flex justify-between items-center">
-          <p className="font-semibold text-gray-500">
-            {} Hotels found in {}
-          </p>
-          <SelectField
-            label="Sort by"
-            placeholder="Sort by.."
-            field="starRating"
-            // formType={register}
-            required="Rating is required"
-            selectOptions={sortOptions}
-          />{" "}
-        </div>
-        <div className="flex flex-col gap-4">
-          {data?.results.map((hotel) => (
-            <div
-              key={hotel._id}
-              className="grid grid-cols-1 lg:grid-cols-3 gap-4 border border-1 border-gray-400 rounded p-4"
-            >
-              <div>
-                <img
-                  className=" aspect-[5/5] "
-                  src={hotel.imageUrls[0]}
-                  alt=""
-                />
-              </div>
-              <div className="flex flex-col justify-between col-span-2 ">
+    <div className="  pt-20 pb-8 space-y-4">
+      <div className=" grid grid-cols-4 gap-4">
+        <div className="border border-1 border-gray-400 rounded p-4 space-y-4 divide-y divide-gray-400">
+          <p className="text-lg font-semibold text-gray-500">Filter By</p>
+        </div>{" "}
+        <div className="col-span-3 space-y-4">
+          <div className="flex justify-between items-center">
+            <p className="font-semibold text-gray-500">
+              {} Hotels found in {}
+            </p>
+            <SelectField
+              label="Sort by"
+              placeholder="Sort by.."
+              field="starRating"
+              // formType={register}
+              required="Rating is required"
+              selectOptions={sortOptions}
+            />{" "}
+          </div>
+          <div className="flex flex-col gap-4">
+            {data?.results.map((hotel) => (
+              <div
+                key={hotel._id}
+                className="grid grid-cols-1 lg:grid-cols-3 gap-4 border border-1 border-gray-400 rounded p-4"
+              >
                 <div>
-                  <div className="flex items-center">
-                    {Array.from({ length: hotel.starRating }).map(() => (
-                      <AiFillStar className="fill-yellow-400" />
-                    ))}
-                    <p className=" capitalize ml-2">{hotel.type}</p>
-                  </div>
-                  <p className="text-2xl font-semibold"> {hotel.name} </p>
-                  <p className=" line-clamp-4 my-5 "> {hotel.description} </p>
+                  <img
+                    className=" aspect-[5/5] "
+                    src={hotel.imageUrls[0]}
+                    alt=""
+                  />
                 </div>
-
-                <div className="flex justify-between items-end">
-                  <div className="flex flex-wrap gap-2 ">
-                    {hotel?.facilities
-                      ?.split(",")
-                      .slice(0, 3)
-                      .map((facility) => (
-                        <div className="bg-gray-300 rounded-md px-3 py-1">
-                          {" "}
-                          {getFacilityLabel(facility)}{" "}
-                        </div>
+                <div className="flex flex-col justify-between col-span-2 ">
+                  <div>
+                    <div className="flex items-center">
+                      {Array.from({ length: hotel.starRating }).map(() => (
+                        <AiFillStar className="fill-yellow-400" />
                       ))}
+                      <p className=" capitalize ml-2">{hotel.type}</p>
+                    </div>
+                    <p className="text-2xl font-semibold"> {hotel.name} </p>
+                    <p className=" line-clamp-4 my-5 "> {hotel.description} </p>
                   </div>
-                  <div className="space-y-1 w-36">
-                    <p className="font-semibold flex items-center">
-                      {" "}
-                      <FaEuroSign className="" size={15} />{" "}
-                      {hotel.pricePerNight} Per night{" "}
-                    </p>
-                    <Button
-                      onClick={() => navigate(`/details/${hotel._id}`)}
-                      variant="sky"
-                    >
-                      View more
-                    </Button>
+
+                  <div className="flex justify-between items-end">
+                    <div className="flex flex-wrap gap-2 ">
+                      {hotel?.facilities
+                        ?.split(",")
+                        .slice(0, 3)
+                        .map((facility) => (
+                          <div className="bg-gray-300 rounded-md px-3 py-1">
+                            {" "}
+                            {getFacilityLabel(facility)}{" "}
+                          </div>
+                        ))}
+                    </div>
+                    <div className="space-y-1 w-36">
+                      <p className="font-semibold flex items-center">
+                        {" "}
+                        <FaEuroSign className="" size={15} />{" "}
+                        {hotel.pricePerNight} Per night{" "}
+                      </p>
+                      <Button
+                        onClick={() => navigate(`/details/${hotel._id}`)}
+                        variant="sky"
+                      >
+                        View more
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-        <Pagination
-          page={data?.pagination.page || 2}
-          pages={data?.pagination.pages || 1}
-          onPageChange={(page) => setPage(page)}
-        />
+            ))}
+          </div>
+        </div>{" "}
       </div>{" "}
+      <div className="flex justify-center w-full">
+        {data?.results.length > 0 ? (
+          <Pagination
+            page={data?.pagination.page || 2}
+            pages={data?.pagination.pages || 1}
+            onPageChange={(page) => setPage(page)}
+          />
+        ) : null}
+      </div>
     </div>
   );
 }

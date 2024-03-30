@@ -73,7 +73,7 @@ function HotelDetails() {
   const defaultFacilities = data?.facilities.split(",");
 
   return (
-    <div className="container mx-auto py-12 space-y-5">
+    <div className="  py-12 space-y-5">
       <p className="text-2xl font-bold text-gray-700">Manage Hotel</p>
       <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
         <Inputfield
