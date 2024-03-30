@@ -9,6 +9,7 @@ import ImageUpload from "../pages/image-upload/ImageUpload";
 import PrivateRoute from "../components/PrivateRoute";
 import AddHotel from "../pages/add-hotel/AddHotel";
 import HotelDetails from "../pages/my-hotels/HotelDetails";
+import AllHotelDetails from "../pages/home/AllHotelDetails";
 
 const routes = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const routes = createBrowserRouter([
       {
         path: "/image-upload",
         element: <ImageUpload />,
+      },
+      {
+        path: "/details/:id",
+        element: <AllHotelDetails />,
       },
     ],
   },

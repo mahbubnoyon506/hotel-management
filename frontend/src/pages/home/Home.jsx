@@ -1,11 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import APIKit from "../../components/commons/helpers/ApiKit";
 import SelectField from "../../components/forms/SelectField";
 import { AiFillStar } from "react-icons/ai";
 import Button from "../../components/shared/Button";
 import { FaEuroSign } from "react-icons/fa";
 import { facitiliesOptions } from "../../components/commons/helpers/Constant";
+import { useNavigate } from "react-router-dom";
+import Pagination from "../../components/shared/Pagination";
 
 const sortOptions = [
   { label: "Start rating", value: "star" },
@@ -21,13 +23,20 @@ function getFacilityLabel(facilityValue) {
 }
 
 function Home() {
+  const navigate = useNavigate();
+  const [page, setPage] = useState(1);
   const { isLoading, data, error, refetch } = useQuery({
     queryKey: ["hotels/search"],
-    queryFn: () => APIKit.hotels.allhotels().then(({ data }) => data),
+    queryFn: () =>
+      APIKit.hotels.allhotels({ page: page }).then(({ data }) => data),
   });
-  console.log(data?.results);
+  console.log(data);
+  console.log(page);
 
-  console.log(facitiliesOptions);
+  useEffect(() => {
+    refetch();
+  }, [page]);
+
   return (
     <div className="container mx-auto grid grid-cols-4 gap-4 pt-20 pb-8">
       {" "}
@@ -56,20 +65,23 @@ function Home() {
             >
               <div>
                 <img
-                  className=" aspect-[5/6] "
+                  className=" aspect-[5/5] "
                   src={hotel.imageUrls[0]}
                   alt=""
                 />
               </div>
-              <div className=" col-span-2 ">
-                <div className="flex items-center">
-                  {Array.from({ length: hotel.starRating }).map(() => (
-                    <AiFillStar className="fill-yellow-400" />
-                  ))}
-                  <p className=" capitalize ml-2">{hotel.type}</p>
+              <div className="flex flex-col justify-between col-span-2 ">
+                <div>
+                  <div className="flex items-center">
+                    {Array.from({ length: hotel.starRating }).map(() => (
+                      <AiFillStar className="fill-yellow-400" />
+                    ))}
+                    <p className=" capitalize ml-2">{hotel.type}</p>
+                  </div>
+                  <p className="text-2xl font-semibold"> {hotel.name} </p>
+                  <p className=" line-clamp-4 my-5 "> {hotel.description} </p>
                 </div>
-                <p className="text-2xl font-semibold"> {hotel.name} </p>
-                <p className=" line-clamp-4 my-5 "> {hotel.description} </p>
+
                 <div className="flex justify-between items-end">
                   <div className="flex flex-wrap gap-2 ">
                     {hotel?.facilities
@@ -88,13 +100,23 @@ function Home() {
                       <FaEuroSign className="" size={15} />{" "}
                       {hotel.pricePerNight} Per night{" "}
                     </p>
-                    <Button variant="sky">View more</Button>
+                    <Button
+                      onClick={() => navigate(`/details/${hotel._id}`)}
+                      variant="sky"
+                    >
+                      View more
+                    </Button>
                   </div>
                 </div>
               </div>
             </div>
           ))}
         </div>
+        <Pagination
+          page={data?.pagination.page || 2}
+          pages={data?.pagination.pages || 1}
+          onPageChange={(page) => setPage(page)}
+        />
       </div>{" "}
     </div>
   );
