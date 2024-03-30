@@ -15,7 +15,7 @@ function SearchPanel() {
   };
 
   return (
-    <div className="container mx-auto ">
+    <div className="  ">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="-mb-14 p-3 bg-orange-400 rounded shadow-md flex flex-col xl:flex-row justify-between gap-2"

@@ -26,7 +26,7 @@ function MyHotels() {
     ("Something went wrong...");
   }
   return (
-    <div className="container mx-auto py-12 space-y-5">
+    <div className="  py-12 space-y-5">
       <div className="flex flex-col md:flex-row justify-between items-end ">
         <p className="text-center text-2xl font-bold text-gray-700">
           My Hotels

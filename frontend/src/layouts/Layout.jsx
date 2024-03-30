@@ -5,9 +5,11 @@ import Footer from "../components/commons/Footer";
 
 const Layout = () => {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col">
       <Header />
-      <Outlet />
+      <div className="max-w-7xl mx-auto">
+        <Outlet />
+      </div>
       <Footer />
       <Toaster />
     </div>

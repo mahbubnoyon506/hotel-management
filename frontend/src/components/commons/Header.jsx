@@ -31,40 +31,42 @@ function Header() {
 
   return (
     <div className="bg-blue-800 py-6 relative">
-      <div className=" container mx-auto flex justify-between pb-6">
-        <span className="text-3xl text-white font-bold tracking-tight">
-          <Link to="/">Holidays.com</Link>
-        </span>
-        <span className="flex space-x-2 items-center">
-          {!state.isAuthenticated ? (
-            <Link
-              to="/login"
-              className="flex bg-white items-center text-blue-600 px-6 py-3 font-bold hover:bg-gray-100 cursor-pointer "
-            >
-              Sign In
-            </Link>
-          ) : (
-            <ul className="flex gap-4 items-center">
-              <li className="text-lg font-semibold text-white">
-                <Link to="/my-hotels">My Hotels</Link>
-              </li>
-              <li className="text-lg font-semibold text-white">
-                <Link to="">My Booking</Link>
-              </li>
-              <li>
-                <p
-                  className="bg-white items-center text-blue-600 px-6 py-3 font-bold hover:bg-gray-100 cursor-pointer "
-                  onClick={handleLogout}
-                >
-                  Logout
-                </p>
-              </li>
-            </ul>
-          )}
-        </span>
+      <div className="max-w-7xl mx-auto">
+        <div className=" flex justify-between pb-6">
+          <span className="text-3xl text-white font-bold tracking-tight">
+            <Link to="/">Holidays.com</Link>
+          </span>
+          <span className="flex space-x-2 items-center">
+            {!state.isAuthenticated ? (
+              <Link
+                to="/login"
+                className="flex bg-white items-center text-blue-600 px-6 py-3 font-bold hover:bg-gray-100 cursor-pointer "
+              >
+                Sign In
+              </Link>
+            ) : (
+              <ul className="flex gap-4 items-center">
+                <li className="text-lg font-semibold text-white">
+                  <Link to="/my-hotels">My Hotels</Link>
+                </li>
+                <li className="text-lg font-semibold text-white">
+                  <Link to="">My Booking</Link>
+                </li>
+                <li>
+                  <p
+                    className="bg-white items-center text-blue-600 px-6 py-3 font-bold hover:bg-gray-100 cursor-pointer "
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </p>
+                </li>
+              </ul>
+            )}
+          </span>
+        </div>
+        <Hero />
+        <SearchPanel />
       </div>
-      <Hero />
-      <SearchPanel />
     </div>
   );
 }
